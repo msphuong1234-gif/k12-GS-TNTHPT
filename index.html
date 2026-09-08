@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K12 • GS • TNTHPT</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#17324d}
+.wrap{max-width:1100px;margin:auto;padding:32px 16px}
+header{text-align:center;margin-bottom:24px}
+h1{margin:0 0 8px;font-size:clamp(28px,5vw,46px)}
+.sub{color:#667b8f;font-size:16px}
+.search{width:100%;padding:14px 16px;border:1px solid #dce5ef;border-radius:14px;font-size:16px;margin:20px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #e1e9f2;border-radius:18px;padding:21px;box-shadow:0 6px 18px rgba(0,0,0,.07);transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.10)}
+.unit{font-size:22px;font-weight:700}
+.meta{margin-top:9px;color:#718397;font-size:14px}
+.status{text-align:center;color:#718397;margin:0 0 18px}
+footer{text-align:center;color:#8998a8;margin-top:28px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>K12 • GLOBAL SUCCESS • TNTHPT</h1>
+  <div class="sub">Chọn Unit để học và luyện tập</div>
+</header>
+
+<input id="search" class="search" placeholder="Tìm Unit hoặc Lesson...">
+<div id="status" class="status">Đang đọc dữ liệu từ GitHub...</div>
+<main id="grid" class="grid"></main>
+<footer>Grade 12 • Global Success • TNTHPT</footer>
+</div>
+
+<script>
+const OWNER="msphuong1234-gif";
+const REPO="k12-GS-TNTHPT";
+const BRANCH="main";
+const TOTAL_UNITS=10;
+const LESSONS_PER_UNIT=8;
+const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents`;
+
+const grid=document.getElementById('grid');
+const statusEl=document.getElementById('status');
+const search=document.getElementById('search');
+let units=[];
+
+async function getJSON(url){
+  const r=await fetch(url,{headers:{'Accept':'application/vnd.github+json'}});
+  if(!r.ok) throw new Error('GitHub API '+r.status);
+  return r.json();
+}
+
+function lessonFile(unit, lesson){
+  return `UNIT_${unit}_LESSON_${lesson}.html`;
+}
+
+async function load(){
+  try{
+    units=[];
+    for(let u=1; u<=TOTAL_UNITS; u++){
+      let existing=0;
+      let names=[];
+      try{
+        const files=await getJSON(`${API}/UNIT-${u}?ref=${encodeURIComponent(BRANCH)}`);
+        for(let l=1;l<=LESSONS_PER_UNIT;l++){
+          const expected=lessonFile(u,l).toLowerCase();
+          if(files.some(x=>x.type==='file' && x.name.toLowerCase()===expected)){
+            existing++;
+            names.push(lessonFile(u,l));
+          }
+        }
+      }catch(e){}
+      units.push({unit:u,existing,names});
+    }
+    statusEl.textContent=`Đã kiểm tra ${TOTAL_UNITS} Unit • ${LESSONS_PER_UNIT} Lesson/Unit`;
+    render();
+  }catch(e){
+    statusEl.textContent='Không đọc được GitHub lúc này. Vui lòng tải lại trang.';
+    units=Array.from({length:TOTAL_UNITS},(_,i)=>({unit:i+1,existing:0,names:[]}));
+    render();
+  }
+}
+
+function render(){
+  const q=search.value.trim().toLowerCase();
+  grid.innerHTML='';
+  units.filter(u=>{
+    const unitText=`unit ${u.unit}`;
+    return !q || unitText.includes(q) || u.names.some(n=>n.toLowerCase().includes(q));
+  }).forEach(u=>{
+    const a=document.createElement('a');
+    a.className='card';
+    a.href=`UNIT-${u.unit}/`;
+    a.innerHTML=`<div class="unit">UNIT ${u.unit}</div>
+      <div class="meta">${u.existing}/${LESSONS_PER_UNIT} lesson đã có • Mở Unit →</div>`;
+    grid.appendChild(a);
+  });
+}
+
+search.addEventListener('input',render);
+load();
+</script>
+</body>
+</html>
