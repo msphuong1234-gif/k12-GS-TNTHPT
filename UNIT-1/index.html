@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNIT 1 • K12 GS TNTHPT</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#17324d}
+.wrap{max-width:940px;margin:auto;padding:28px 16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.back{color:#315f8a;text-decoration:none;font-weight:700}
+h1{margin:14px 0 6px;font-size:clamp(28px,5vw,42px)}
+.sub,.status{color:#718397}
+.search{width:100%;padding:14px 16px;border:1px solid #dce5ef;border-radius:14px;font-size:16px;margin:18px 0}
+.list{display:grid;gap:12px}
+.lesson{display:block;background:#fff;color:inherit;text-decoration:none;border:1px solid #e1e9f2;border-radius:16px;padding:18px;box-shadow:0 5px 15px rgba(0,0,0,.06)}
+.lesson:hover{transform:translateY(-2px)}
+.lesson.disabled{opacity:.52;pointer-events:none;background:#f7f9fb}
+.title{font-size:18px;font-weight:700}
+.file{font-size:12px;color:#8a99a8;margin-top:6px;word-break:break-all}
+.badge{display:inline-block;margin-left:8px;font-size:12px;padding:3px 8px;border-radius:999px;background:#eef3f8;color:#6e7f90}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+  <a class="back" href="../">← Trang chính</a>
+  <span class="status" id="count">Đang kiểm tra...</span>
+</div>
+<h1>UNIT 1</h1>
+<div class="sub">8 Lesson • Tự nhận diện file HTML trong GitHub</div>
+
+<input id="search" class="search" placeholder="Tìm Lesson...">
+<div id="list" class="list"></div>
+</div>
+
+<script>
+const OWNER="msphuong1234-gif";
+const REPO="k12-GS-TNTHPT";
+const BRANCH="main";
+const UNIT=1;
+const LESSONS=8;
+const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents/UNIT-${UNIT}?ref=${encodeURIComponent(BRANCH)}`;
+
+const list=document.getElementById('list');
+const search=document.getElementById('search');
+const count=document.getElementById('count');
+
+let available=new Set();
+
+function fileName(lesson){
+  return `UNIT_${UNIT}_LESSON_${lesson}.html`;
+}
+
+async function load(){
+  try{
+    const r=await fetch(API,{headers:{'Accept':'application/vnd.github+json'}});
+    if(!r.ok) throw new Error(r.status);
+    const files=await r.json();
+    files.filter(x=>x.type==='file').forEach(x=>available.add(x.name.toLowerCase()));
+    const n=Array.from({length:LESSONS},(_,i)=>i+1)
+      .filter(l=>available.has(fileName(l).toLowerCase())).length;
+    count.textContent=`${n}/${LESSONS} lesson đã upload`;
+  }catch(e){
+    count.textContent='Không đọc được GitHub';
+  }
+  render();
+}
+
+function render(){
+  const q=search.value.trim().toLowerCase();
+  list.innerHTML='';
+  for(let l=1;l<=LESSONS;l++){
+    const fn=fileName(l);
+    const exists=available.has(fn.toLowerCase());
+    const label=`lesson ${l}`;
+    if(q && !label.includes(q) && !fn.toLowerCase().includes(q)) continue;
+
+    const a=document.createElement('a');
+    a.className='lesson'+(exists?'':' disabled');
+    a.href=exists ? encodeURIComponent(fn) : '#';
+    a.innerHTML=`<div class="title">LESSON ${l}
+      <span class="badge">${exists?'Đã có bài':'Chưa upload'}</span></div>
+      <div class="file">${fn}</div>`;
+    list.appendChild(a);
+  }
+}
+
+search.addEventListener('input',render);
+load();
+</script>
+</body>
+</html>
