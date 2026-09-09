@@ -1,107 +1,115 @@
-<!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>K12 • GS • TNTHPT</title>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071c3c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#17324d}
-.wrap{max-width:1100px;margin:auto;padding:32px 16px}
-header{text-align:center;margin-bottom:24px}
-h1{margin:0 0 8px;font-size:clamp(28px,5vw,46px)}
-.sub{color:#667b8f;font-size:16px}
-.search{width:100%;padding:14px 16px;border:1px solid #dce5ef;border-radius:14px;font-size:16px;margin:20px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #e1e9f2;border-radius:18px;padding:21px;box-shadow:0 6px 18px rgba(0,0,0,.07);transition:.15s}
-.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.10)}
-.unit{font-size:22px;font-weight:700}
-.meta{margin-top:9px;color:#718397;font-size:14px}
-.status{text-align:center;color:#718397;margin:0 0 18px}
-footer{text-align:center;color:#8998a8;margin-top:28px;font-size:13px}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header>
-  <h1>K12 • GLOBAL SUCCESS • TNTHPT</h1>
-  <div class="sub">Chọn Unit để học và luyện tập</div>
-</header>
+:root{
+  --navy:#071c3c;--navy2:#0b2a59;--blue:#1f66e5;--blue2:#4c91ff;
+  --sky:#eaf3ff;--gold:#ffc94a;--green:#16a36a;--ink:#13213a;
+  --muted:#66738a;--line:#dfe6f0;--bg:#f5f8fc;--white:#fff;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit}button,input{font:inherit}
+.topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(223,230,240,.95)}
+.nav{max-width:1180px;height:70px;margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
+.brandmark{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,var(--navy),var(--blue));color:#fff;display:grid;place-items:center;font:800 14px "Manrope"}
+.brandcopy strong{display:block;font:800 13px "Manrope";color:var(--navy)}
+.brandcopy span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.homebtn{text-decoration:none;color:var(--blue);font-weight:800;font-size:13px;padding:9px 12px;border-radius:10px}
+.homebtn:hover{background:#eef5ff}
+.hero{color:#fff;background:radial-gradient(circle at 88% 8%,rgba(78,146,255,.30),transparent 27%),linear-gradient(135deg,#061832,#0a2c5e 56%,#123f82)}
+.hero-in{max-width:1180px;margin:auto;padding:56px 22px 50px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px}
+.crumb{display:flex;flex-wrap:wrap;gap:7px;align-items:center;color:#b7cae5;font-size:12px;font-weight:700}.crumb a{text-decoration:none}.crumb a:hover{color:#fff}
+.kicker{margin-top:22px;display:inline-flex;gap:8px;align-items:center;color:#9fc3ff;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+h1{margin:10px 0 9px;font:800 clamp(34px,5.6vw,58px)/1.07 "Manrope";letter-spacing:-.04em}
+.hero-sub{margin:0;color:#d1deef;font-size:16px;line-height:1.65;max-width:760px}
+.hero-stat{min-width:190px;padding:18px 20px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);border-radius:16px}
+.hero-stat span{display:block;color:#b9cbe3;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.hero-stat b{display:block;margin-top:5px;font:800 28px "Manrope"}
+main{max-width:1180px;margin:auto;padding:42px 22px 76px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:22px}
+.section-head h2{margin:0;color:var(--navy);font:800 30px "Manrope";letter-spacing:-.025em}
+.section-head p{margin:7px 0 0;color:var(--muted);font-size:14px}.status{font-size:12px;color:var(--muted)}
+.status.ready:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px}
+.search-wrap{position:relative;margin-bottom:24px}.search-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:#8290a6}
+.search{width:100%;height:52px;padding:0 16px 0 47px;border:1px solid #d9e1ec;background:#fff;border-radius:13px;outline:none}
+.search:focus{border-color:#7dadf8;box-shadow:0 0 0 4px rgba(31,102,229,.10)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{position:relative;min-height:180px;display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:17px;padding:21px;overflow:hidden;transition:.25s;box-shadow:0 8px 25px rgba(18,49,91,.045)}
+.card:hover{transform:translateY(-4px);border-color:#b9cdee;box-shadow:0 20px 48px rgba(18,49,91,.12)}
+.card-label{color:var(--blue);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.card h3{margin:6px 0 7px;color:var(--navy);font:800 19px "Manrope";line-height:1.3}
+.card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}
+.card-bottom{margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.count{font-size:12px;color:#56657b;font-weight:700}.enter{color:var(--blue);font-size:12px;font-weight:800}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.item{min-height:135px;display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:15px;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:17px;padding:19px;transition:.25s;box-shadow:0 8px 25px rgba(18,49,91,.045)}
+.item:hover{transform:translateY(-3px);border-color:#b9cdee;box-shadow:0 18px 42px rgba(18,49,91,.11)}
+.num{width:54px;height:54px;border-radius:15px;background:var(--sky);color:var(--blue);display:grid;place-items:center;font:800 18px "Manrope"}
+.item-label{color:var(--blue);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.item-title{margin:4px 0;color:var(--navy);font:800 16px "Manrope";overflow-wrap:anywhere}
+.item-file{font-size:11px;color:var(--muted);overflow-wrap:anywhere}.arrow{color:var(--blue);font-weight:900;font-size:20px}
+.empty{grid-column:1/-1;background:#fff;border:1px dashed #cbd6e5;border-radius:17px;padding:38px;text-align:center;color:var(--muted)}
+.note{margin-top:38px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;color:var(--muted);font-size:13px;line-height:1.65}
+.note strong{color:var(--navy)}
+footer{border-top:1px solid var(--line);background:#fff}.footer{max-width:1180px;margin:auto;padding:22px;display:flex;justify-content:space-between;gap:15px;color:#7a879a;font-size:12px}.footer strong{color:var(--navy)}
+@media(max-width:850px){.hero-in{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.list{grid-template-columns:1fr}}
+@media(max-width:580px){.nav{height:64px;padding:0 15px}.brandcopy span{display:none}.hero-in{padding:42px 16px 40px}main{padding:34px 16px 58px}.grid{grid-template-columns:1fr}.section-head{display:block}.status{margin-top:10px}.item{grid-template-columns:50px 1fr auto;padding:16px;gap:11px}.num{width:48px;height:48px}.footer{display:block;text-align:center;line-height:1.7}}
+</style><title>K12 • Global Success • TNTHPT</title>
+<style>
+.hero-main .hero-in{padding:70px 22px 62px;align-items:center}
+.hero-main h1 span{color:#8ebcff}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:17px;margin:32px 0 50px}
+.quick .card{min-height:205px}
+.quick .card.exam{background:linear-gradient(145deg,#fff,#f5f9ff)}
+</style></head><body>
+<header class="topbar"><nav class="nav">
+<a class="brand" href="./"><div class="brandmark">K12</div><div class="brandcopy"><strong>GLOBAL SUCCESS • TNTHPT</strong><span>Digital Learning Hub</span></div></a>
+<a class="homebtn" href="./">← Trang chủ</a></nav></header>
+<section class="hero hero-main"><div class="hero-in"><div>
+<div class="kicker">Grade 12 • National High School Graduation Exam</div>
+<h1>Học chắc kiến thức.<br><span>Sẵn sàng cho kỳ thi.</span></h1>
+<p class="hero-sub">Kho học liệu Global Success 12 kết hợp định hướng ôn thi TNTHPT. Học theo Unit, luyện đề và ôn kiểm tra giữa kỳ/cuối kỳ trong cùng một hệ thống.</p>
+</div><div class="hero-stat"><span>Learning system</span><b>GS 12</b></div></div></section>
 
-<input id="search" class="search" placeholder="Tìm Unit hoặc Lesson...">
-<div id="status" class="status">Đang đọc dữ liệu từ GitHub...</div>
-<main id="grid" class="grid"></main>
-<footer>Grade 12 • Global Success • TNTHPT</footer>
+<main>
+<section>
+<div class="section-head"><div><h2>Khu vực luyện thi</h2><p>Truy cập nhanh các kho đề quan trọng.</p></div></div>
+<div class="quick">
+<a class="card exam" href="LUYEN-DE-TN-THPT/"><div class="card-label">Exam practice</div><h3>LUYỆN ĐỀ TN THPT</h3><p>Kho đề luyện thi tốt nghiệp THPT. Tự động hiển thị các file HTML được thêm vào thư mục.</p><div class="card-bottom"><span class="count">Kho đề riêng TNTHPT</span><span class="enter">Mở kho →</span></div></a>
+<a class="card exam" href="ON-THI-GIUA-KY-CUOI-KY/"><div class="card-label">Shared library</div><h3>ÔN THI GIỮA KỲ • CUỐI KỲ</h3><p>Dùng chung nguồn đề với website V-ACT. Chỉ cần upload đề một lần ở V-ACT.</p><div class="card-bottom"><span class="count">HK1 • HK2</span><span class="enter">Mở kho →</span></div></a>
 </div>
+</section>
 
+<section id="units">
+<div class="section-head"><div><h2>Chọn Unit để bắt đầu</h2><p>Danh sách Unit và số bài học được đồng bộ từ GitHub.</p></div><div id="status" class="status">Đang đồng bộ...</div></div>
+<div class="search-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="m21 21-4.35-4.35m2.35-5.15A7.5 7.5 0 1 1 4 11.5a7.5 7.5 0 0 1 15 0Z" stroke="currentColor" stroke-width="2"/></svg><input id="search" class="search" placeholder="Tìm Unit hoặc Lesson..."></div>
+<div id="grid" class="grid"></div>
+</section>
+</main><footer><div class="footer"><div>Grade 12 • Global Success • TNTHPT</div><div>Thiết kế & vận hành bởi <strong>HOÀNG THỊ MỸ PHƯỢNG</strong></div></div></footer>
 <script>
-const OWNER="msphuong1234-gif";
-const REPO="k12-GS-TNTHPT";
-const BRANCH="main";
-const TOTAL_UNITS=10;
-const LESSONS_PER_UNIT=8;
+const OWNER="msphuong1234-gif",REPO="k12-GS-TNTHPT",BRANCH="main";
 const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents`;
-
-const grid=document.getElementById('grid');
-const statusEl=document.getElementById('status');
-const search=document.getElementById('search');
 let units=[];
-
-async function getJSON(url){
-  const r=await fetch(url,{headers:{'Accept':'application/vnd.github+json'}});
-  if(!r.ok) throw new Error('GitHub API '+r.status);
-  return r.json();
-}
-
-function lessonFile(unit, lesson){
-  return `UNIT_${unit}_LESSON_${lesson}.html`;
-}
-
+function unitNumber(n){const m=n.match(/\d+/);return m?Number(m[0]):999}
+async function getJSON(u){const r=await fetch(u,{headers:{Accept:"application/vnd.github+json"}});if(!r.ok)throw new Error(r.status);return r.json()}
 async function load(){
-  try{
-    units=[];
-    for(let u=1; u<=TOTAL_UNITS; u++){
-      let existing=0;
-      let names=[];
-      try{
-        const files=await getJSON(`${API}/UNIT-${u}?ref=${encodeURIComponent(BRANCH)}`);
-        for(let l=1;l<=LESSONS_PER_UNIT;l++){
-          const expected=lessonFile(u,l).toLowerCase();
-          if(files.some(x=>x.type==='file' && x.name.toLowerCase()===expected)){
-            existing++;
-            names.push(lessonFile(u,l));
-          }
-        }
-      }catch(e){}
-      units.push({unit:u,existing,names});
-    }
-    statusEl.textContent=`Đã kiểm tra ${TOTAL_UNITS} Unit • ${LESSONS_PER_UNIT} Lesson/Unit`;
-    render();
-  }catch(e){
-    statusEl.textContent='Không đọc được GitHub lúc này. Vui lòng tải lại trang.';
-    units=Array.from({length:TOTAL_UNITS},(_,i)=>({unit:i+1,existing:0,names:[]}));
-    render();
-  }
+ try{
+  const root=await getJSON(`${API}?ref=${BRANCH}`);
+  const dirs=root.filter(x=>x.type==="dir"&&/^UNIT[-_ ]?\d+$/i.test(x.name)).sort((a,b)=>unitNumber(a.name)-unitNumber(b.name));
+  units=await Promise.all(dirs.map(async d=>{try{const fs=await getJSON(`${API}/${encodeURIComponent(d.name)}?ref=${BRANCH}`);const ls=fs.filter(x=>x.type==="file"&&/\.html?$/i.test(x.name)&&x.name.toLowerCase()!=="index.html");return{name:d.name,n:unitNumber(d.name),count:ls.length,names:ls.map(x=>x.name)}}catch{return{name:d.name,n:unitNumber(d.name),count:0,names:[]}}}));
+  document.getElementById("status").textContent=`${units.length} Unit đã sẵn sàng`;document.getElementById("status").classList.add("ready");render();
+ }catch{document.getElementById("status").textContent="Chưa thể đồng bộ GitHub lúc này"}
 }
-
 function render(){
-  const q=search.value.trim().toLowerCase();
-  grid.innerHTML='';
-  units.filter(u=>{
-    const unitText=`unit ${u.unit}`;
-    return !q || unitText.includes(q) || u.names.some(n=>n.toLowerCase().includes(q));
-  }).forEach(u=>{
-    const a=document.createElement('a');
-    a.className='card';
-    a.href=`UNIT-${u.unit}/`;
-    a.innerHTML=`<div class="unit">UNIT ${u.unit}</div>
-      <div class="meta">${u.existing}/${LESSONS_PER_UNIT} lesson đã có • Mở Unit →</div>`;
-    grid.appendChild(a);
-  });
+ const q=document.getElementById("search").value.trim().toLowerCase(),g=document.getElementById("grid");g.innerHTML="";
+ const data=units.filter(u=>!q||u.name.toLowerCase().includes(q)||`unit ${u.n}`.includes(q)||u.names.some(n=>n.toLowerCase().includes(q)));
+ if(!data.length){g.innerHTML='<div class="empty">Không tìm thấy Unit hoặc Lesson phù hợp.</div>';return}
+ data.forEach(u=>{const a=document.createElement("a");a.className="card";a.href=`${u.name}/`;a.innerHTML=`<div class="card-label">Grade 12 • Unit ${u.n}</div><h3>UNIT ${u.n}</h3><p>Global Success • TNTHPT learning resources</p><div class="card-bottom"><span class="count">${u.count} bài học</span><span class="enter">Mở Unit →</span></div>`;g.appendChild(a)})
 }
-
-search.addEventListener('input',render);
-load();
-</script>
-</body>
-</html>
+document.getElementById("search").addEventListener("input",render);load();
+</script></body></html>
