@@ -1,0 +1,29 @@
+name: Sync Specific Folder to K12-GS-VACT
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ON-THI-GIUA-KY-CUOI-KY/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push Directory to Destination Repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_PAT }}
+        with:
+          source-directory: 'ON-THI-GIUA-KY-CUOI-KY'
+          destination-github-username: 'msphuong1234-gif'
+          destination-repository-name: 'K12-GS-VACT'
+          user-email: 'msphuong1234@gmail.com'
+          commit-message: 'Auto-sync ON-THI-GIUA-KY-CUOI-KY from k12-GS-TNTHPT'
+          target-branch: 'main'
