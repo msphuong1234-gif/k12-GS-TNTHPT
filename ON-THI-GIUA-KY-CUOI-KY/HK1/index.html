@@ -1,9 +1,10 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#071c3c">
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071c3c"><meta name="description" content="Chọn năm học để mở danh mục ôn thi giữa kỳ và cuối kỳ."><meta name="k12-page" content="index">
+<title>HK1 • K12 Global Success</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><style>
 :root{
   --navy:#071c3c;--navy2:#0b2a59;--blue:#1f66e5;--blue2:#4c91ff;
   --sky:#eaf3ff;--gold:#ffc94a;--green:#16a36a;--ink:#13213a;
@@ -59,25 +60,77 @@ main{max-width:1180px;margin:auto;padding:42px 22px 76px}
 footer{border-top:1px solid var(--line);background:#fff}.footer{max-width:1180px;margin:auto;padding:22px;display:flex;justify-content:space-between;gap:15px;color:#7a879a;font-size:12px}.footer strong{color:var(--navy)}
 @media(max-width:850px){.hero-in{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.list{grid-template-columns:1fr}}
 @media(max-width:580px){.nav{height:64px;padding:0 15px}.brandcopy span{display:none}.hero-in{padding:42px 16px 40px}main{padding:34px 16px 58px}.grid{grid-template-columns:1fr}.section-head{display:block}.status{margin-top:10px}.item{grid-template-columns:50px 1fr auto;padding:16px;gap:11px}.num{width:48px;height:48px}.footer{display:block;text-align:center;line-height:1.7}}
-</style><title>HK1 • Ôn thi giữa kỳ cuối kỳ</title></head><body>
-<header class="topbar"><nav class="nav">
-<a class="brand" href="../"><div class="brandmark">K12</div><div class="brandcopy"><strong>GLOBAL SUCCESS • TNTHPT</strong><span>Digital Learning Hub</span></div></a>
-<a class="homebtn" href="../">← Quay lại học kỳ</a></nav></header>
-<section class="hero"><div class="hero-in"><div><div class="crumb"><a href="../../">Trang chủ</a><span>›</span><a href="../">Giữa kỳ • cuối kỳ</a><span>›</span><span>HK1</span></div><div class="kicker">Shared from K12-GS-VACT</div><h1>HK1</h1><p class="hero-sub">Danh sách đề bên dưới được đọc trực tiếp từ kho V-ACT. Khi mở đề, học sinh sẽ dùng chính file nguồn trên website V-ACT.</p></div><div class="hero-stat"><span>Đề hiện có</span><b id="count">—</b></div></div></section>
-<main><div class="section-head"><div><h2>Danh sách đề HK1</h2><p>Không cần upload lại đề sang repository TNTHPT.</p></div><div id="status" class="status">Đang đọc kho V-ACT...</div></div>
-<div class="search-wrap"><svg viewBox="0 0 24 24" fill="none"><path d="m21 21-4.35-4.35m2.35-5.15A7.5 7.5 0 1 1 4 11.5a7.5 7.5 0 0 1 15 0Z" stroke="currentColor" stroke-width="2"/></svg><input id="search" class="search" placeholder="Tìm tên đề HK1..."></div><div id="list" class="list"></div>
-<div class="note"><strong>Nguồn dữ liệu:</strong> repository <code>K12-GS-VACT</code> → <code>LUYEN-DE-KIEM-TRA-GIUA-KY-CUOI-KY/HK1</code>. Upload một lần ở đó, trang này tự cập nhật.</div></main><footer><div class="footer"><div>Grade 12 • Global Success • TNTHPT</div><div>Thiết kế & vận hành bởi <strong>HOÀNG THỊ MỸ PHƯỢNG</strong></div></div></footer>
-<script>
-const OWNER="msphuong1234-gif",REPO="K12-GS-VACT",BRANCH="main",SEM="HK1",DIR=`LUYEN-DE-KIEM-TRA-GIUA-KY-CUOI-KY/${SEM}`;
-const BASE=`https://${OWNER}.github.io/${REPO}/LUYEN-DE-KIEM-TRA-GIUA-KY-CUOI-KY/${SEM}/`;let items=[];
-async function j(u){const r=await fetch(u,{headers:{Accept:"application/vnd.github+json"}});if(!r.ok)throw new Error(r.status);return r.json()}
-function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-async function load(){
- try{const fs=await j(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${DIR}?ref=${BRANCH}`);
- items=fs.filter(x=>x.type==="file"&&/\.html?$/i.test(x.name)&&x.name.toLowerCase()!=="index.html").map(x=>x.name).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
- document.getElementById("count").textContent=items.length;document.getElementById("status").textContent=`${items.length} đề từ V-ACT`;document.getElementById("status").classList.add("ready");render()
- }catch(e){document.getElementById("status").textContent="Chưa thể đọc kho V-ACT lúc này"}
-}
-function render(){const q=document.getElementById("search").value.toLowerCase(),l=document.getElementById("list");l.innerHTML="";const d=items.filter(n=>n.toLowerCase().includes(q));if(!d.length){l.innerHTML='<div class="empty">Chưa có đề hoặc không tìm thấy đề phù hợp.</div>';return}d.forEach((name,i)=>{const a=document.createElement("a");a.className="item";a.href=BASE+encodeURIComponent(name);a.target="_self";a.innerHTML=`<div class="num">${String(i+1).padStart(2,"0")}</div><div><div class="item-label">HK1 • Shared V-ACT</div><div class="item-title">${esc(name.replace(/\.html?$/i,"").replace(/_/g," "))}</div><div class="item-file">${esc(name)}</div></div><div class="arrow">→</div>`;l.appendChild(a)})}
-document.getElementById("search").addEventListener("input",render);load();
-</script></body></html>
+
+[hidden]{display:none!important}
+body{overflow-wrap:break-word}
+.brandmark{flex-shrink:0;font-family:"Manrope",system-ui,sans-serif}
+.brandcopy{min-width:0}
+.brandcopy strong{font-family:"Manrope",system-ui,sans-serif}
+h1,h2,h3,.item-title,.num,.hero-stat b{font-family:"Manrope",system-ui,sans-serif}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #edb728;outline-offset:4px}
+.skip{position:fixed;left:12px;top:-90px;z-index:99;background:#fff;padding:12px 16px;border:2px solid #1f66e5;border-radius:10px;color:#071c3c}
+.skip:focus{top:10px}
+.nav-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.crumb{margin:0 0 18px;line-height:1.8}
+.crumb [aria-current]{color:#fff}
+.hero .kicker{margin-top:0}
+.hero-sub{max-width:750px}
+.hero-stat{min-width:172px}
+.hero-stat small{display:block;color:#c0d5ef;margin-top:5px;line-height:1.5;font-size:12px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{min-height:194px}
+.card h3{overflow-wrap:anywhere}
+.card-mark{width:42px;height:42px;border-radius:12px;background:#eaf3ff;color:#1f66e5;display:grid;place-items:center;margin-bottom:15px;font-weight:800;font-size:14px}
+.card-label{letter-spacing:.08em;line-height:1.5}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.meta-pill{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);padding:7px 11px;border-radius:9px;color:#e3edfb;font-size:12px;font-weight:700}
+.mock-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mock-list .item{min-height:127px;grid-template-columns:45px minmax(0,1fr) 12px;padding:18px 15px;gap:12px}
+.mock-list .num{width:44px;height:48px;border-radius:12px;font-size:16px}
+.mock-list .item-title{font-size:15px;letter-spacing:-.025em;line-height:1.5}
+.mock-list .item-file{font-size:11px;line-height:1.6;color:#62728a}
+.mock-list .arrow{font-size:18px}
+.item[aria-busy=true]{opacity:.68;cursor:progress}
+.item.is-missing{border-color:#d8dee7}
+.item.is-missing .item-file{color:#8a5c13}
+.search{padding-right:53px}
+.clear-search{position:absolute;right:9px;top:8px;width:36px;height:36px;border:0;border-radius:8px;background:transparent;color:#66738a;font-size:25px;cursor:pointer}
+.clear-search:hover{background:#eaf3ff}
+.status{line-height:1.7}
+.section-head h2{font-size:27px}
+.page-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.button{display:inline-flex;justify-content:center;align-items:center;min-height:43px;padding:11px 17px;border:1px solid #1f66e5;border-radius:11px;background:#1f66e5;color:#fff;font-weight:700;font-size:13px;line-height:1.4;text-decoration:none;cursor:pointer}
+.button.secondary{background:#fff;color:#1f66e5;border-color:#cfdaeb}
+.button:hover{filter:brightness(.96)}
+.waiting{background:#fff;border:1px solid #dfe6f0;border-radius:20px;padding:42px;max-width:790px;margin:0 auto;text-align:center}
+.waiting-mark{width:68px;height:68px;margin:0 auto 19px;background:#fff5d7;color:#987017;border-radius:19px;display:grid;place-items:center}
+.waiting h2{font-size:27px;color:#071c3c;margin:0 0 14px}
+.waiting p{color:#66738a;line-height:1.8;max-width:580px;margin:0 auto 12px;font-size:15px}
+.waiting .page-actions{justify-content:center}
+.waiting-tag{display:inline-flex;padding:6px 11px;background:#fff5d7;color:#8a6010;font-size:12px;font-weight:700;border-radius:20px;margin-bottom:17px}
+.exam-context{font-size:12px;color:#8390a4;line-height:1.7;margin-top:25px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);background:#071c3c;color:#fff;padding:11px 18px;z-index:70;border-radius:12px;box-shadow:0 6px 30px #071c3c30;font-size:13px;text-align:center}
+dialog{width:min(460px,calc(100% - 32px));padding:27px;border:1px solid #dfe6f0;border-radius:18px;box-shadow:0 25px 80px #071c3c44;color:#13213a}
+dialog::backdrop{background:rgba(7,28,60,.5)}
+dialog h2{font-size:22px;color:#071c3c;margin:0 0 12px}
+dialog p{line-height:1.75;color:#66738a;font-size:14px;margin:0}
+dialog .page-actions{justify-content:flex-end;margin-top:22px}
+.note{font-size:13px;margin-top:28px}
+.footer strong{white-space:normal}
+.noscript{border:1px solid #eed499;background:#fff9e9;border-radius:12px;padding:14px;color:#6d5522;font-size:13px;line-height:1.7;margin-bottom:22px}
+@media(max-width:1000px){.mock-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.hero-in{gap:22px}.hero-stat{display:inline-block;min-width:0;max-width:250px}.hero-stat b{font-size:25px}.section-head{align-items:start}.brandcopy strong{font-size:12px}.homebtn{font-size:12px;padding:9px}.quick{gap:14px!important}}
+@media(max-width:580px){.quick,.grid.two,.grid.four,.mock-list{grid-template-columns:1fr!important}.nav{gap:8px}.brand{gap:8px}.brandmark{width:37px;height:37px;border-radius:10px;font-size:12px}.brandcopy strong{max-width:160px;font-size:10px;line-height:1.6}.homebtn{padding:8px;font-size:11px}.nav-actions .back-top{display:none}.hero-in{padding-top:31px}.hero-main .hero-in{padding:45px 16px!important}.hero-sub{font-size:14px}.hero h1{font-size:37px;line-height:1.16;letter-spacing:-.04em}.hero-stat{padding:13px 16px}.hero-stat b{font-size:23px}.card{min-height:172px}.card-mark{margin-bottom:12px}.section-head h2{font-size:24px}.mock-list .item{min-height:106px;padding:16px;grid-template-columns:46px minmax(0,1fr) 16px}.mock-list .item-title{font-size:16px}.waiting{padding:28px 20px}.waiting h2{font-size:24px}.crumb{font-size:11px;gap:5px}.meta-row{gap:6px}.meta-pill{font-size:11px;padding:6px 9px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card,.item{transition:none}.card:hover,.item:hover{transform:none}}
+</style></head>
+<body><a class="skip" href="#main">Đến nội dung chính</a>
+<header class="topbar"><nav class="nav" aria-label="Điều hướng chính">
+<a class="brand" href="../../index.html"><div class="brandmark">K12</div><div class="brandcopy"><strong>GLOBAL SUCCESS • TNTHPT</strong><span>Digital Learning Hub</span></div></a>
+<div class="nav-actions"><a class="homebtn back-top" href="../index.html">← Quay lại</a><a class="homebtn" href="../../index.html">Trang chủ</a></div></nav></header>
+<section class="hero"><div class="hero-in"><div><nav class="crumb" aria-label="Đường dẫn"><a href="../../index.html">Trang chủ</a><span aria-hidden="true">›</span><a href="../index.html">Ôn thi</a><span aria-hidden="true">›</span><span aria-current="page">HK1</span></nav><div class="kicker">Global Success 12 • Ôn tập & luyện thi</div>
+<h1>HK1</h1><p class="hero-sub">Chọn năm học để mở danh mục ôn thi giữa kỳ và cuối kỳ.</p><div class="meta-row"><span class="meta-pill">HK1</span></div></div>
+<div class="hero-stat"><span>Năm học</span><b>04 năm</b><small>120 vị trí đề / năm học</small></div></div></section>
+<main id="main"><section><div class="section-head"><div><h2>Chọn năm học</h2><p>Danh mục được chuẩn bị từ năm học 2026–2027 đến 2029–2030.</p></div></div><div class="grid four"><a class="card" href="NH-2026-2027/index.html"><div class="card-mark" aria-hidden="true">1</div><div class="card-label">HK1</div><h3>NH-2026-2027</h3><p>Giữa kỳ và cuối kỳ • Cả bốn đợt kiểm tra.</p><div class="card-bottom"><span class="count">GK1 • CK1 • GK2 • CK2</span><span class="enter">Chọn đợt thi →</span></div></a><a class="card" href="NH-2027-2028/index.html"><div class="card-mark" aria-hidden="true">2</div><div class="card-label">HK1</div><h3>NH-2027-2028</h3><p>Giữa kỳ và cuối kỳ • Cả bốn đợt kiểm tra.</p><div class="card-bottom"><span class="count">GK1 • CK1 • GK2 • CK2</span><span class="enter">Chọn đợt thi →</span></div></a><a class="card" href="NH-2028-2029/index.html"><div class="card-mark" aria-hidden="true">3</div><div class="card-label">HK1</div><h3>NH-2028-2029</h3><p>Giữa kỳ và cuối kỳ • Cả bốn đợt kiểm tra.</p><div class="card-bottom"><span class="count">GK1 • CK1 • GK2 • CK2</span><span class="enter">Chọn đợt thi →</span></div></a><a class="card" href="NH-2029-2030/index.html"><div class="card-mark" aria-hidden="true">4</div><div class="card-label">HK1</div><h3>NH-2029-2030</h3><p>Giữa kỳ và cuối kỳ • Cả bốn đợt kiểm tra.</p><div class="card-bottom"><span class="count">GK1 • CK1 • GK2 • CK2</span><span class="enter">Chọn đợt thi →</span></div></a></div></section><div class="page-actions"><a class="button secondary" href="../index.html">← Chọn học kỳ</a></div></main>
+<footer><div class="footer"><div>Grade 12 • Global Success • TNTHPT</div><div>Thiết kế & vận hành bởi <strong>HOÀNG THỊ MỸ PHƯỢNG</strong></div></div></footer>
+</body></html>
