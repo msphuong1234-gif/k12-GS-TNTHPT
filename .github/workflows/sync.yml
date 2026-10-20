@@ -1,4 +1,4 @@
-name: Sync Specific Folder to K12-GS-VACT
+name: Sync Specific Folder to K12-GS-VACT Safely
 
 on:
   push:
@@ -13,17 +13,11 @@ jobs:
     steps:
       - name: Checkout Source Repo
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - name: Push Directory to Destination Repo
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.GH_PAT }}
+      - name: Pushing to another repository
+        uses: ad-m/github-push-action@master
         with:
-          source-directory: 'ON-THI-GIUA-KY-CUOI-KY'
-          destination-github-username: 'msphuong1234-gif'
-          destination-repository-name: 'K12-GS-VACT'
-          user-email: 'msphuong1234@gmail.com'
-          commit-message: 'Auto-sync ON-THI-GIUA-KY-CUOI-KY from k12-GS-TNTHPT'
-          target-branch: 'main'
+          github_token: ${{ secrets.GH_PAT }}
+          repository: 'msphuong1234-gif/K12-GS-VACT'
+          branch: 'main'
+          force: true
